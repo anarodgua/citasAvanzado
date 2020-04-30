@@ -76,7 +76,11 @@
                                         Pacientes
                                     </a>
                                 </li>
-
+                                <li>
+                                    <a href="{{ url('/showAssignCentroSanitario') }}">
+                                        Asignar centro sanitario
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="{{ url('/citas') }}">
                                         Citas
