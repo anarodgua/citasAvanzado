@@ -36,11 +36,8 @@ class CitaController extends Controller
      */
     public function create()
     {
-        $medicos = User::where('userType', 'Medico')->get()->pluck('name','id');
-
-
-        $paciente = Auth::user()->id;
-
+        $medicos = User::where('userType', 'Medico')->get()->pluck('full_name','id');
+        $paciente = User::where('userType', 'Paciente')->get()->pluck('full_name','id');
 
         return view('citas/create',['medicos'=>$medicos, 'paciente'=>$paciente]);
     }
@@ -56,7 +53,10 @@ class CitaController extends Controller
         $this->validate($request, [
             'medico_id' => 'required|exists:medicos,id',
             'paciente_id' => 'required|exists:pacientes,id',
-            'fecha_hora' => 'required|date|after:now',
+            'localizacion_id' => 'required|exists:localizacions,id',
+            'fechaInicio' => 'required|date|after:now',
+            'fechaFin' => 'required|date|after:now',
+
 
         ]);
 

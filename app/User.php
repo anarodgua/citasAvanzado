@@ -33,6 +33,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Cita');
     }
+    public function getFullNameAtribute(){
+        return $this->name . ' ' . $this->surname;
+    }
 
 
     protected $hidden = ['password', 'remember_token'];

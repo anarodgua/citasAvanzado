@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::delete('especialidades/destroyAll', 'EspecialidadController@destroyAll')->name('especialidades.destroyAll');
+Route::delete('especialidads/destroyAll', 'EspecialidadController@destroyAll')->name('especialidads.destroyAll');
 
 Route::resource('users', 'UserController');
 Route::resource('citas', 'CitaController');
@@ -29,6 +29,12 @@ Route::resource('especialidads', 'EspecialidadController');
 
 Route::get('/showAssignCentroSanitario', 'UserController@showAssignCentroSanitario')->name('showAssignCentroSanitario');
 Route::post('/assignCentroSanitario', 'UserController@asignarCentroSanitorio')->name('assignCentroSanitario');
+
+Route::get('/showAssignEspecialidad', 'UserController@showAssignEspecialidad')->name('showAssignEspecialidad');
+Route::post('/assignEspecialidad', 'UserController@asignarEspecialidad')->name('assignEspecialidad');
+
+Route::get('/showAssignPoliza', 'UserController@showAssignPoliza')->name('showAssignPoliza');
+Route::post('/assignPoliza', 'UserController@asignarPoliza')->name('assignPoliza');
 
 Auth::routes();
 
