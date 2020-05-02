@@ -27,14 +27,29 @@ Route::resource('companias', 'companiaController');
 Route::resource('polizas', 'PolizaController');
 Route::resource('especialidads', 'EspecialidadController');
 
-Route::get('/showAssignCentroSanitario', 'UserController@showAssignCentroSanitario')->name('showAssignCentroSanitario');
-Route::post('/assignCentroSanitario', 'UserController@asignarCentroSanitorio')->name('assignCentroSanitario');
+//rutas solo para médicos
+Route::group(['middleware' => 'App\Http\Middleware\MedicoMiddleware'], function() {
 
-Route::get('/showAssignEspecialidad', 'UserController@showAssignEspecialidad')->name('showAssignEspecialidad');
-Route::post('/assignEspecialidad', 'UserController@asignarEspecialidad')->name('assignEspecialidad');
+    Route::get('/showAssignCentroSanitario', 'UserController@showAssignCentroSanitario')->name('showAssignCentroSanitario');
+    Route::post('/assignCentroSanitario', 'UserController@asignarCentroSanitorio')->name('assignCentroSanitario');
 
-Route::get('/showAssignPoliza', 'UserController@showAssignPoliza')->name('showAssignPoliza');
-Route::post('/assignPoliza', 'UserController@asignarPoliza')->name('assignPoliza');
+    Route::get('/showAssignEspecialidad', 'UserController@showAssignEspecialidad')->name('showAssignEspecialidad');
+    Route::post('/assignEspecialidad', 'UserController@asignarEspecialidad')->name('assignEspecialidad');
+
+});
+
+//rutas solo para pacientes
+Route::group(['middleware' => 'App\Http\Middleware\PacienteMiddleware'], function() {
+
+    Route::get('/showAssignPoliza', 'PolizaController@showAssignPoliza')->name('showAssignPoliza');
+    Route::post('/assignPoliza', 'PolizaController@asignarPoliza')->name('assignPoliza');
+
+});
+//rutas solo para administradores
+Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
+
+});
+
 
 Auth::routes();
 

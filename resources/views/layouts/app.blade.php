@@ -71,21 +71,37 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/showAssignEspecialidad') }}">
-                                        Asignar especialidad
-                                    </a>
-                                </li>
-
-                                <li>
                                     <a href="{{ url('/pacientes') }}">
                                         Pacientes
                                     </a>
                                 </li>
+                                @if(Auth::user()->userType =='Médico')
+
                                 <li>
                                     <a href="{{ url('/showAssignCentroSanitario') }}">
                                         Asignar centro sanitario
                                     </a>
                                 </li>
+                                    <li>
+                                        <a href="{{ url('/showAssignEspecialidad') }}">
+                                            Asignar especialidad
+                                        </a>
+                                    </li>
+                                    @csrf
+                                    </form>
+                                @endif
+
+                                @if(Auth::user()->userType =='Paciente')
+
+                                <li>
+                                    <a href="{{ url('/showAssignPoliza') }}">
+                                        Selección de póliza y compañía
+                                    </a>
+                                </li>
+                                @csrf
+                                </form>
+                                @endif
+
                                 <li>
                                     <a href="{{ url('/citas') }}">
                                         Citas
@@ -95,7 +111,7 @@
                                     <a href="{{ url('/logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        Logout
+                                        Cerrar sesión
                                     </a>
 
                                     <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

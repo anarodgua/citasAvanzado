@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CentroSanitario;
+use App\Compania;
 use App\Especialidad;
 use App\Poliza;
 use Illuminate\Http\Request;
@@ -30,20 +31,6 @@ class UserController extends Controller
         $usuarioActual->save();
         return view("home");
     }
-    public function showAssignPoliza(){
-        $polizas = Poliza::all()->pluck('nombre', 'id');
-
-        return view ("polizas.assign", ['polizas'=>$polizas]);
-    }
-
-    public function asignarPoliza(Request $request){
-        $especialidad_id = $request->get('especialidad_id');
-        $usuarioActual = Auth::user();
-        $usuarioActual->especialidad_id = $especialidad_id;
-        $usuarioActual->save();
-        return view("home");
-    }
-
 
     public function asignarCentroSanitorio(Request $request){
         $centroSanitario_id = $request->get('centroSanitario_id'); //en el formulario el atributo del input que se llama name="centrosanitario_id"
