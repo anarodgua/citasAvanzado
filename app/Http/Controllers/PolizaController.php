@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Cita;
 use App\Poliza;
 use Illuminate\Http\Request;
+use App\Compania;
+use Illuminate\Support\Facades\Auth;
+
 
 class PolizaController extends Controller
 {
@@ -14,20 +16,17 @@ class PolizaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showAssignPoliza(){
-        $polizas = Poliza::all()->pluck('numero', 'id');
 
-        return view ("polizas.showAssign", ['polizas'=>$polizas]);
-    }
-    public function showAssignTipoPoliza(){
-        $tipoPolizas = Poliza::all()->pluck('tipo', 'id');
+        $companias = Compania::all()->pluck('nombre', 'id');
 
-        return view ("polizas.showAssign", ['tipoPolizas'=>$tipoPolizas]);
+        return view ("polizas.showAssign", ['companias'=>$companias]);
     }
 
     public function asignarPoliza(Request $request){
-        $poliza_id = $request->get('poliza_id');
+        $poliza=new Poliza($request->all());
+        $poliza->save();
         $usuarioActual = Auth::user();
-        $usuarioActual->poliza_id = $poliza_id;
+        $usuarioActual->poliza_id = $poliza->id;
         $usuarioActual->save();
         return view("home");
     }

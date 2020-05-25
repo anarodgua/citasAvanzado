@@ -71,26 +71,22 @@
             @if (Auth::check())
                 <a href="{{ url('/home') }}">Citas</a>
             @else
-                <a href="{{ url('/login') }}">Login</a>
-                <a href="{{ url('/register') }}">Registro</a>
+                <a href="{{ url('/login') }}">INICIAR SESIÓN</a>
+                <a href="{{ url('/register') }}">REGISTRARSE</a>
             @endif
         </div>
     @endif
 
     <div class="content">
         <div class="title m-b-md">
-            Gestor de Citas Avanzado: AskForHealth
-        </div>
+            <a href="{{ route('login') }}"><img src={{ asset('CitasAdvancedLogo.PNG') }} title="AskForHealth" alt="Logo de Gestión de Citas Avanzado"></a>        </div>
         <div>
             AskforHealth es una herramienta para la gestión de citas hospitalarias. <br> <br>
         </div>
 
         <div class="links">
-            <a href="https://laravel.com/docs">Laravel</a>
-            <a href="https://laracasts.com">Laracasts</a>
-            <a href="https://laravelcollective.com/docs/5.3/html">Formularios</a>
-            <a href="http://php.net/manual/es/langref.php">PHP</a>
-            <a href="https://www.mysql.com/products/workbench/">MySQL</a>
+            <a href="https://ev.us.es/webapps/blackboard/execute/modulepage/view?course_id=_34532_1&cmp_tab_id=_81279_1&mode=view" target="_blank">Codificación y Gestión de la información Sanitaria</a>
+            <a href="https://www.us.es/" target="_blank">UNIVERSIDAD DE SEVILLA</a>
             <div align="right">
                 Ana Rodríguez Gualda
             </div>

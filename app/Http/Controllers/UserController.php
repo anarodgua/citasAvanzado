@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function miPerfilPaciente (){
+        $nombre = User::where('paciente_id', Auth::user()->id)->get();
+        return view('citas.indexPaciente',['citas'=>$citas]);
+    }
+
 
     public function showAssignCentroSanitario(){
         $centroSanitarios = CentroSanitario::all()->pluck('nombreCentro','id');

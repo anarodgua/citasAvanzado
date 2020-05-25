@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\CentroSanitario;
+use App\Localizacion;
 use Illuminate\Http\Request;
 use App\Cita;
 use App\User;
@@ -28,7 +30,16 @@ class CitaController extends Controller
 
         return view('citas/index',['citas'=>$citas]);
     }
-
+    public function indexPaciente()
+    {
+        $citas = Cita::where('paciente_id', Auth::user()->id)->get();
+        return view('citas.indexPaciente',['citas'=>$citas]);
+    }
+    public function indexMedico()
+    {
+        $citas = Cita::where('medico_id', Auth::user()->id)->get();
+        return view('citas.indexMedico',['citas'=>$citas]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -36,13 +47,26 @@ class CitaController extends Controller
      */
     public function create()
     {
-        $medicos = User::where('userType', 'Medico')->get()->pluck('full_name','id');
-        $paciente = User::where('userType', 'Paciente')->get()->pluck('full_name','id');
-
-        return view('citas/create',['medicos'=>$medicos, 'paciente'=>$paciente]);
+        $medicos = User::where('userType', 'Medico')->get()->pluck('name','id');
+      //  $centroSanitarios = CentroSanitario::all()->pluck('nombreCentro','id');
+        $localizaciones=Localizacion::all()->pluck('consulta','id');
+      //  $localizaciones->each()
+       // $localizaciones->pluck('fullName', 'id');
+        //dd($localizaciones);
+        return view('citas/create',['medicos'=>$medicos,'localizaciones'=> $localizaciones]);
+    }
+    public function createPaciente()
+    {
+        $medicos = User::where('userType', 'Medico')->get()->pluck('name','id');
+        //  $centroSanitarios = CentroSanitario::all()->pluck('nombreCentro','id');
+        $localizaciones=Localizacion::all()->pluck('consulta','id');
+        //  $localizaciones->each()
+        // $localizaciones->pluck('fullName', 'id');
+        //dd($localizaciones);
+        return view('citas.createPaciente',['medicos'=>$medicos,'localizaciones'=> $localizaciones]);
     }
 
-    /**
+/**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -51,8 +75,7 @@ class CitaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'medico_id' => 'required|exists:medicos,id',
-            'paciente_id' => 'required|exists:pacientes,id',
+            'medico_id' => 'required|exists:users,id',
             'localizacion_id' => 'required|exists:localizacions,id',
             'fechaInicio' => 'required|date|after:now',
             'fechaFin' => 'required|date|after:now',
@@ -61,12 +84,33 @@ class CitaController extends Controller
         ]);
 
         $cita = new Cita($request->all());
+        $cita->paciente_id = Auth::user()->id;
         $cita->save();
 
 
         flash('Cita creada correctamente');
 
         return redirect()->route('citas.index');
+    }
+    public function storePaciente(Request $request)
+    {
+        $this->validate($request, [
+            'medico_id' => 'required|exists:users,id',
+            'localizacion_id' => 'required|exists:localizacions,id',
+            'fechaInicio' => 'required|date|after:now',
+            'fechaFin' => 'required|date|after:now',
+
+
+        ]);
+
+        $cita = new Cita($request->all());
+        $cita->paciente_id = Auth::user()->id;
+        $cita->save();
+
+
+        flash('Cita creada correctamente');
+
+        return redirect()->route('indexPaciente');
     }
 
     /**
@@ -91,14 +135,25 @@ class CitaController extends Controller
 
         $cita = Cita::find($id);
 
-        $medicos = Medico::all()->pluck('full_name','id');
+        $medicos = User::where('userType', 'Medico')->get()->pluck('name','id');
 
-        $pacientes = Paciente::all()->pluck('full_name','id');
+        $localizaciones=Localizacion::all()->pluck('consulta','id');
 
 
-        return view('citas/edit',['cita'=> $cita, 'medicos'=>$medicos, 'pacientes'=>$pacientes]);
+        return view('citas/edit',['cita'=> $cita, 'medicos'=>$medicos, 'localizaciones'=>$localizaciones]);
     }
+    public function editPaciente($id)
+    {
 
+        $cita = Cita::find($id);
+
+        $medicos = User::where('userType', 'Medico')->get()->pluck('name','id');
+
+        $localizaciones=Localizacion::all()->pluck('consulta','id');
+
+
+        return view('citas.editPaciente',['cita'=> $cita, 'medicos'=>$medicos, 'localizaciones'=>$localizaciones]);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -109,9 +164,9 @@ class CitaController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'medico_id' => 'required|exists:medicos,id',
-            'paciente_id' => 'required|exists:pacientes,id',
-            'fecha_hora' => 'required|date|after:now',
+            'medico_id' => 'required|exists:users,id',
+            'localizacion_id' => 'required|exists:localizacions,id',
+            'fechaInicio' => 'required|date|after:now',
 
         ]);
         $cita = Cita::find($id);
@@ -123,6 +178,24 @@ class CitaController extends Controller
 
         return redirect()->route('citas.index');
     }
+    public function updatePaciente(Request $request, $id)
+    {
+        $this->validate($request, [
+            'medico_id' => 'required|exists:users,id',
+            'localizacion_id' => 'required|exists:localizacions,id',
+            'fechaInicio' => 'required|date|after:now',
+
+        ]);
+        $cita = Cita::find($id);
+        $cita->fill($request->all());
+
+        $cita->save();
+
+        flash('Cita modificada correctamente');
+
+        return redirect()->route('indexPaciente');
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -137,5 +210,13 @@ class CitaController extends Controller
         flash('Cita borrada correctamente');
 
         return redirect()->route('citas.index');
+    }
+    public function destroyPaciente($id)
+    {
+        $cita = Cita::find($id);
+        $cita->delete();
+        flash('Cita borrada correctamente');
+
+        return redirect()->route('indexPaciente');
     }
 }

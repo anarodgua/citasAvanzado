@@ -10,24 +10,27 @@
                     <div class="panel-body">
                         @include('flash::message')
 
-                        {!! Form::open(['route' => 'showAssignPoliza']) !!}
+                        {!! Form::open(['route' => 'assignPoliza']) !!}
 
                         <div class="form-group">
-                            {!!Form::label('poliza_id', 'Poliza') !!}
+                            {!!Form::label('tipo', 'Tipo de póliza') !!}
                             <br>
-                            {!! Form::input('poliza_id', $polizas, ['class' => 'form-control']) !!}
+                            {!! Form::text('tipo',null,['class'=>'form-control', 'autofocus']) !!}
                         </div>
 
                         <div class="form-group">
-                            {!!Form::label('poliza_id', 'Tipo de póliza') !!}
+                            {!!Form::label('numero', 'Número de póliza') !!}
                             <br>
-                            {!! Form::select('poliza_id', $tipoPolizas, ['class' => 'form-control', 'required']) !!}
+                            {!! Form::text('numero',null,['class'=>'form-control']) !!}
                         </div>
+
                         <div class="form-group">
                             {!!Form::label('compania_id', 'Compañía') !!}
                             <br>
-                            {!! Form::select('compania_id', $polizas, ['class' => 'form-control', 'required']) !!}
+                            {!! Form::select('compania_id', $companias, ['class' => 'form-control', 'required']) !!}
                         </div>
+
+
                         {!! Form::submit('Guardar',['class'=>'btn-primary btn']) !!}
 
                         {!! Form::close() !!}

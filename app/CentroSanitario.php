@@ -14,11 +14,11 @@ class CentroSanitario extends Model
     {
      $this->hasMany('App\User');
     }
-    public function especialidades()
+    public function especialidads()
     {
         $this->hasMany('App\Especialidad');
     }
-    public function localizaciones()
+    public function localizacions()
     {
         $this->hasMany('App\Localizacion');
     }

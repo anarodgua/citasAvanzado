@@ -10,7 +10,7 @@
                     <div class="panel-body">
                         @include('flash::message')
 
-                        {!! Form::open(['route' => 'citas.store']) !!}
+                        {!! Form::open(['route' => 'storePaciente']) !!}
                         <div class="form-group">
                             {!! Form::label('fechaInicio', 'Fecha y hora de inicio la cita') !!}
 

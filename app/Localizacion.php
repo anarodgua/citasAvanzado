@@ -14,6 +14,10 @@ class Localizacion extends Model
     }
     public function centroSanitario()
     {
-        return $this->belongsTo('App\CentroSanitario');
+        return $this->belongsTo('App\CentroSanitario', 'centroSanitario_id');
+    }
+
+    public function fullName(){
+        return $this->centroSanitario.' '.$this->consulta;
     }
 }

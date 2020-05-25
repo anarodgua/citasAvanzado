@@ -19,16 +19,13 @@ Route::get('/', function () {
 
 Route::delete('especialidads/destroyAll', 'EspecialidadController@destroyAll')->name('especialidads.destroyAll');
 
-Route::resource('users', 'UserController');
 Route::resource('citas', 'CitaController');
-Route::resource('centroSanitarios', 'CentroSanitariosController');
-Route::resource('localizacions', 'LocalizacionController');
-Route::resource('companias', 'companiaController');
-Route::resource('polizas', 'PolizaController');
-Route::resource('especialidads', 'EspecialidadController');
+
 
 //rutas solo para médicos
 Route::group(['middleware' => 'App\Http\Middleware\MedicoMiddleware'], function() {
+
+    Route::get('/indexMedico', 'CitaController@indexMedico')->name('indexMedico');
 
     Route::get('/showAssignCentroSanitario', 'UserController@showAssignCentroSanitario')->name('showAssignCentroSanitario');
     Route::post('/assignCentroSanitario', 'UserController@asignarCentroSanitorio')->name('assignCentroSanitario');
@@ -44,9 +41,29 @@ Route::group(['middleware' => 'App\Http\Middleware\PacienteMiddleware'], functio
     Route::get('/showAssignPoliza', 'PolizaController@showAssignPoliza')->name('showAssignPoliza');
     Route::post('/assignPoliza', 'PolizaController@asignarPoliza')->name('assignPoliza');
 
+    Route::get('/indexPaciente', 'CitaController@indexPaciente')->name('indexPaciente');
+    Route::get('/editPaciente/{id}', 'CitaController@editPaciente')->name('editPaciente');
+    Route::get('/createPaciente', 'CitaController@createPaciente')->name('createPaciente');
+    Route::post('/storePaciente', 'CitaController@storePaciente')->name('storePaciente');
+    Route::put('/updatePaciente/{id}', 'CitaController@updatePaciente')->name('updatePaciente');
+    Route::delete('/destroyPaciente/{id}', 'CitaController@destroyPaciente')->name('destroyPaciente');
+
+
+
+
+
+
+
 });
 //rutas solo para administradores
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
+    Route::resource('users', 'UserController');
+    Route::resource('centroSanitarios', 'CentroSanitariosController');
+    Route::resource('localizacions', 'LocalizacionController');
+    Route::resource('companias', 'companiaController');
+    Route::resource('polizas', 'PolizaController');
+    Route::resource('especialidads', 'EspecialidadController');
+    Route::put('/editCita', 'CitaController@updateAdmin')->name('editCita');
 
 });
 

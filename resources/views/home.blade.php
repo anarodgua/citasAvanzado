@@ -5,10 +5,12 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Bienvenido</div>
+                    <div class="panel-heading">Bienvenido {{Auth::user()->name }}</div>
 
                     <div class="panel-body">
-                        Usa el menú para explorar las funcionalidades.
+                        Está usted utilizando el gestor de citas Ask For Health.
+                               Use el menú para explorar sus opciones.
+                                  Gracias por confiar en nosotros.
                     </div>
                 </div>
             </div>

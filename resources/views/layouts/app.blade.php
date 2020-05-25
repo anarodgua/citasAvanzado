@@ -26,6 +26,7 @@
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
+                <img src={{ asset('favicon.png') }} height="32px">
 
                 <!-- Collapsed Hamburger -->
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
@@ -56,27 +57,49 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                {{ Auth::user()->name }} <span class="caret">({{Auth::user()->userType}})</span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ url('/medicos') }}">
-                                        Medicos
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/especialidads') }}">
-                                        Especialidades
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/pacientes') }}">
-                                        Pacientes
-                                    </a>
-                                </li>
-                                @if(Auth::user()->userType =='Médico')
 
+
+
+                                @if(Auth::user()->userType == 'Administrador')
+                                    <li>
+                                        <a href="{{ url('/citas') }}">
+                                            Citas
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/medicos') }}">
+                                            Medicos
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/especialidads') }}">
+                                            Especialidades
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/pacientes') }}">
+                                            Pacientes
+                                        </a>
+                                    </li>
+                                @csrf
+                                </form>
+                                @endif
+
+                                @if(Auth::user()->userType =='Médico')
+                                        <li>
+                                            <a href="{{ url('indexMedico') }}">
+                                                Mis perfil
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('indexMedico') }}">
+                                                Mis citas
+                                            </a>
+                                        </li>
                                 <li>
                                     <a href="{{ url('/showAssignCentroSanitario') }}">
                                         Asignar centro sanitario
@@ -92,6 +115,16 @@
                                 @endif
 
                                 @if(Auth::user()->userType =='Paciente')
+                                        <li>
+                                            <a href="{{ url('indexPaciente') }}">
+                                                Mis perfil
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/indexPaciente') }}">
+                                                Mis citas
+                                            </a>
+                                        </li>
 
                                 <li>
                                     <a href="{{ url('/showAssignPoliza') }}">
@@ -102,11 +135,7 @@
                                 </form>
                                 @endif
 
-                                <li>
-                                    <a href="{{ url('/citas') }}">
-                                        Citas
-                                    </a>
-                                </li>
+
                                 <li>
                                     <a href="{{ url('/logout') }}"
                                        onclick="event.preventDefault();

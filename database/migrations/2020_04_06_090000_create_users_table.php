@@ -33,7 +33,6 @@ class CreateUsersTable extends Migration
             $table->foreign('centroSanitario_id')->references('id')->on('centroSanitarios');
             $table->foreign('poliza_id')->references('id')->on('polizas');
             $table->foreign('especialidad_id')->references('id')->on('especialidads');
-            $table->foreign('medico_id')->references('id')->on('users');
 
         });
     }

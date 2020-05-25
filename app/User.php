@@ -10,7 +10,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = ['name','surname', 'email', 'password','userType','nuhsa','especialidad_id',
-        'medico_id','poliza_id','centroSanitario_id'];
+        'poliza_id','centroSanitario_id'];
 
 
     public function poliza()
@@ -25,16 +25,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\CentroSanitario','centroSanitario_id');
     }
-    public function medico()
-    {
-        return $this->belongsTo('App\User','medico_id');
-    }
     public function citas()
     {
         return $this->hasMany('App\Cita');
     }
     public function getFullNameAtribute(){
-        return $this->name . ' ' . $this->surname;
+        return $this->name .' '. $this->surname;
     }
 
 

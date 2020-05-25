@@ -5,11 +5,11 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Citas</div>
+                    <div class="panel-heading">Mis Citas</div>
 
                     <div class="panel-body">
                         @include('flash::message')
-                        {!! Form::open(['route' => 'citas.create', 'method' => 'get']) !!}
+                        {!! Form::open(['route' => 'createPaciente', 'method' => 'get']) !!}
                         {!!   Form::submit('Crear cita', ['class'=> 'btn btn-primary'])!!}
                         {!! Form::close() !!}
 
@@ -34,12 +34,12 @@
 
 
                                     <td>
-                                        {!! Form::open(['route' => ['citas.edit',$cita->id], 'method' => 'get']) !!}
+                                        {!! Form::open(['route' => ['editPaciente',$cita->id], 'method' => 'get']) !!}
                                         {!!   Form::submit('Editar', ['class'=> 'btn btn-warning'])!!}
                                         {!! Form::close() !!}
                                     </td>
                                     <td>
-                                        {!! Form::open(['route' => ['citas.destroy',$cita->id], 'method' => 'delete']) !!}
+                                        {!! Form::open(['route' => ['destroyPaciente',$cita->id], 'method' => 'delete']) !!}
                                         {!!   Form::submit('Borrar', ['class'=> 'btn btn-danger' ,'onclick' => 'if(!confirm("¿Está seguro?"))event.preventDefault();'])!!}
                                         {!! Form::close() !!}
 

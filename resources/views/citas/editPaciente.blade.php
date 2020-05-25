@@ -5,26 +5,18 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Crear cita</div>
+                    <div class="panel-heading">Modificar cita</div>
 
                     <div class="panel-body">
                         @include('flash::message')
 
-                        {!! Form::open(['route' => 'citas.store']) !!}
+                        {!! Form::model($cita, [ 'route' => ['updatePaciente',$cita->id], 'method'=>'PUT']) !!}
+
                         <div class="form-group">
-                            {!! Form::label('fechaInicio', 'Fecha y hora de inicio la cita') !!}
+                            {!! Form::label('fechaInicio', 'Fecha y hora de la cita') !!}
 
 
                             <input type="datetime-local" id="fechaInicio" name="fechaInicio" class="form-control" value="{{Carbon\Carbon::now()->format('Y-m-d\Th:i')}}" />
-
-
-                        </div>
-
-                        <div class="form-group">
-                            {!! Form::label('fechaFin', 'Fecha y hora de fin de la cita') !!}
-
-
-                            <input type="datetime-local" id="fechaFin" name="fechaFin" class="form-control" value="{{Carbon\Carbon::now()->format('Y-m-d\Th:i')}}" />
 
 
                         </div>
