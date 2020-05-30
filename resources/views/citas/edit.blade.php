@@ -18,13 +18,22 @@
 
                             <input type="datetime-local" id="fechaInicio" name="fechaInicio" class="form-control" value="{{Carbon\Carbon::now()->format('Y-m-d\Th:i')}}" />
 
-
                         </div>
 
                         <div class="form-group">
                             {!!Form::label('medico_id', 'Medico') !!}
                             <br>
                             {!! Form::select('medico_id', $medicos, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!!Form::label('tipoCita', 'Tipo de cita') !!}
+                            <br>
+                            {!! Form::select('tipoCita',['consulta'=>'Consulta','revision'=>'Revisión'], ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!!Form::label('provincia', 'Seleccione su provincia') !!}
+                            <br>
+                            {!! Form::select('provincia',['Sevilla'=>'Sevilla','Cordoba'=>'Córdoba','Granada'=>'Granada'], ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
                             {!!Form::label('localizacion_id', 'Localización') !!}

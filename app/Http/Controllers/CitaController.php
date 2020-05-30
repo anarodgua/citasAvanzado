@@ -81,39 +81,47 @@ class CitaController extends Controller
             'paciente_id' => 'required|exists:users,id',
             'localizacion_id' => 'required|exists:localizacions,id',
             'fechaInicio' => 'required|date|after:now',
-            'fechaFin' => 'required|date|after:now',
+            //'fechaFin' => 'required|date|after:now',
 
 
         ]);
 
         $cita = new Cita($request->all());
-        $cita->save();
+        $fecha_inicio_copy = clone $cita->fechaInicio;
+        $cita->fechaFin = $fecha_inicio_copy->addMinutes(15);
+
+            $cita->save();
 
 
-        flash('Cita creada correctamente');
+            flash('Cita creada correctamente');
 
-        return redirect()->route('citas.index');
-    }
+            return redirect()->route('citas.index');
+        }
+
     public function storePaciente(Request $request)
     {
         $this->validate($request, [
             'medico_id' => 'required|exists:users,id',
             'localizacion_id' => 'required|exists:localizacions,id',
             'fechaInicio' => 'required|date|after:now',
-            'fechaFin' => 'required|date|after:now',
+            //'fechaFin' => 'required|date|after:now',
 
 
         ]);
-
+        //las citas tienen una duración predeterminada de 15 min
         $cita = new Cita($request->all());
+        $fecha_inicio_copy = clone $cita->fechaInicio;
+        $cita->fechaFin = $fecha_inicio_copy->addMinutes(15);
         $cita->paciente_id = Auth::user()->id;
-        $cita->save();
+
+            $cita->save();
 
 
-        flash('Cita creada correctamente');
+            flash('Cita creada correctamente');
 
-        return redirect()->route('indexPaciente');
-    }
+            return redirect()->route('indexPaciente');
+        }
+
 
     /**
      * Display the specified resource.

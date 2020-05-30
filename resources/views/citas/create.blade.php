@@ -12,22 +12,22 @@
 
                         {!! Form::open(['route' => 'citas.store']) !!}
 
-
                         <div class="form-group">
                             {!! Form::label('fechaInicio', 'Fecha y hora de inicio la cita') !!}
 
 
                             <input type="datetime-local" id="fechaInicio" name="fechaInicio" class="form-control" value="{{Carbon\Carbon::now()->format('Y-m-d\Th:i')}}" />
-
-
                         </div>
 
                         <div class="form-group">
-                            {!! Form::label('fechaFin', 'Fecha y hora de fin de la cita') !!}
-
-
-                            <input type="datetime-local" id="fechaFin" name="fechaFin" class="form-control" value="{{Carbon\Carbon::now()->format('Y-m-d\Th:i')}}" />
-
+                            {!!Form::label('paciente_id', 'Paciente') !!}
+                            <br>
+                            {!! Form::select('paciente_id', $pacientes, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!!Form::label('medico_id', 'Medico') !!}
+                            <br>
+                            {!! Form::select('medico_id', $medicos, ['class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group">
@@ -35,21 +35,10 @@
                             <br>
                             {!! Form::select('tipoCita',['consulta'=>'Consulta','revision'=>'Revisión'], ['class' => 'form-control']) !!}
                         </div>
-
-                        <div class="form-group">
-                            {!!Form::label('medico_id', 'Medico') !!}
-                            <br>
-                            {!! Form::select('medico_id', $medicos, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!!Form::label('paciente_id', 'Paciente') !!}
-                            <br>
-                            {!! Form::select('paciente_id', $pacientes, ['class' => 'form-control']) !!}
-                        </div>
                         <div class="form-group">
                             {!!Form::label('provincia', 'Seleccione su provincia') !!}
                             <br>
-                            {!! Form::select('provincia',['Sevilla'=>'Sevilla','Cordoba'=>'Córdoba'], ['class' => 'form-control']) !!}
+                            {!! Form::select('provincia',['Sevilla'=>'Sevilla','Cordoba'=>'Córdoba','Granada'=>'Granada'], ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
                             {!!Form::label('localizacion_id', 'Localización') !!}
