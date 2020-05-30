@@ -90,14 +90,25 @@ class CitaController extends Controller
         $fecha_inicio_copy = clone $cita->fechaInicio;
         $cita->fechaFin = $fecha_inicio_copy->addMinutes(15);
 
-            $cita->save();
+        //no queremos que las citas se solapen
+        $fecha_inicio_request = $cita->fechaInicio;
+        $medico_cita = $cita->medico_id;
 
+        $cita_disp = Cita::where('fechaInicio', '<=', $fecha_inicio_request)
+            ->where('fechaFin', '>', $fecha_inicio_request)
+            ->where('medico_id', '=', $medico_cita)
+            ->exists();
+        if ($cita_disp == true) {
+            return redirect()->route('citas.create')->withErrors('La hora de la cita no esta disponible');
+        } else {
+
+            $cita->save();
 
             flash('Cita creada correctamente');
 
             return redirect()->route('citas.index');
         }
-
+    }
     public function storePaciente(Request $request)
     {
         $this->validate($request, [
@@ -114,6 +125,19 @@ class CitaController extends Controller
         $cita->fechaFin = $fecha_inicio_copy->addMinutes(15);
         $cita->paciente_id = Auth::user()->id;
 
+        //no queremos que las citas se solapen
+        $fecha_inicio_request = $cita->fechaInicio;
+        $medico_cita = $cita->medico_id;
+
+        $cita_disp = Cita::where('fechaInicio', '<=', $fecha_inicio_request)
+            ->where('fechaFin', '>', $fecha_inicio_request)
+            ->where('medico_id', '=', $medico_cita)
+            ->exists();
+        if ($cita_disp == true) {
+            return redirect()->route('citas.create')->withErrors('La hora de la cita no esta disponible');
+        } else {
+
+
             $cita->save();
 
 
@@ -121,6 +145,7 @@ class CitaController extends Controller
 
             return redirect()->route('indexPaciente');
         }
+    }
 
 
     /**
@@ -147,11 +172,11 @@ class CitaController extends Controller
         $cita = Cita::find($id);
 
         $medicos = User::where('userType', 'Medico')->get()->pluck('name','id');
-
+        $pacientes = User::where('userType', 'Paciente')->get()->pluck('name','id');
         $localizaciones=Localizacion::all()->pluck('consulta','id');
 
 
-        return view('citas/edit',['cita'=> $cita, 'medicos'=>$medicos, 'localizaciones'=>$localizaciones]);
+        return view('citas/edit',['cita'=> $cita, 'medicos'=>$medicos, 'localizaciones'=>$localizaciones,'pacientes'=>$pacientes]);
     }
     public function editPaciente($id)
     {
@@ -176,13 +201,13 @@ class CitaController extends Controller
     {
         $this->validate($request, [
             'medico_id' => 'required|exists:users,id',
+            'paciente_id'=>'required|exists:users,id',
             'localizacion_id' => 'required|exists:localizacions,id',
             'fechaInicio' => 'required|date|after:now',
 
         ]);
         $cita = Cita::find($id);
         $cita->fill($request->all());
-
         $cita->save();
 
         flash('Cita modificada correctamente');
