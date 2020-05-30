@@ -12,6 +12,7 @@
                                Use el menú para explorar sus opciones.
                                   Gracias por confiar en nosotros.
                     </div>
+
                 </div>
             </div>
         </div>

@@ -71,8 +71,8 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url('/medicos') }}">
-                                            Medicos
+                                        <a href="{{ url('/users') }}">
+                                            Dar de alta usuarios
                                         </a>
                                     </li>
                                     <li>
@@ -80,18 +80,14 @@
                                             Especialidades
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="{{ url('/pacientes') }}">
-                                            Pacientes
-                                        </a>
-                                    </li>
+
                                 @csrf
                                 </form>
                                 @endif
 
                                 @if(Auth::user()->userType =='Médico')
                                         <li>
-                                            <a href="{{ url('indexMedico') }}">
+                                            <a href="{{ url('/perfilMedico') }}">
                                                 Mis perfil
                                             </a>
                                         </li>
@@ -116,7 +112,7 @@
 
                                 @if(Auth::user()->userType =='Paciente')
                                         <li>
-                                            <a href="{{ url('indexPaciente') }}">
+                                            <a href="{{ url('/perfilPaciente') }}">
                                                 Mis perfil
                                             </a>
                                         </li>

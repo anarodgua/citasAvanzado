@@ -5,12 +5,17 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Medicos</div>
+                    <div class="panel-heading">Usuarios de AskForHealth</div>
+
 
                     <div class="panel-body">
                         @include('flash::message')
-                        {!! Form::open(['route' => 'medicos.create', 'method' => 'get']) !!}
-                        {!!   Form::submit('Crear medico', ['class'=> 'btn btn-primary'])!!}
+                        {!! Form::open(['route' => 'users.create', 'method' => 'get']) !!}
+                        {!!   Form::submit('Crear usuario', ['class'=> 'btn btn-primary'])!!}
+                        {!! Form::close() !!}
+
+
+
                         {!! Form::close() !!}
 
                         <br><br>
@@ -18,29 +23,26 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
-                                <th>Especialidad</th>
+                                <th>Tipo de usuario</th>
                                 <th colspan="2">Acciones</th>
                             </tr>
 
-                            @foreach ($medicos as $medico)
+                            @foreach ($users as $user)
 
 
                                 <tr>
-                                    <td>{{ $medico->name }}</td>
-                                    <td>{{ $medico->surname }}</td>
-                                    <td>{{ $medico->especialidad->name }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->surname }}</td>
+                                    <td>{{ $user->userType}}</td>
+
+
 
                                     <td>
-                                        {!! Form::open(['route' => ['medicos.edit',$medico->id], 'method' => 'get']) !!}
+                                        {!! Form::open(['route' => ['users.edit',$user->id], 'method' => 'get']) !!}
                                         {!!   Form::submit('Editar', ['class'=> 'btn btn-warning'])!!}
                                         {!! Form::close() !!}
                                     </td>
-                                    <td>
-                                        {!! Form::open(['route' => ['medicos.destroy',$medico->id], 'method' => 'delete']) !!}
-                                        {!!   Form::submit('Borrar', ['class'=> 'btn btn-danger' ,'onclick' => 'if(!confirm("¿Está seguro?"))event.preventDefault();'])!!}
-                                        {!! Form::close() !!}
 
-                                    </td>
                                 </tr>
                             @endforeach
                         </table>

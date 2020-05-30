@@ -6,14 +6,19 @@ use App\CentroSanitario;
 use App\Compania;
 use App\Especialidad;
 use App\Poliza;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function miPerfilPaciente (){
-        $nombre = User::where('paciente_id', Auth::user()->id)->get();
-        return view('citas.indexPaciente',['citas'=>$citas]);
+    public function perfilPaciente (){
+        $user =Auth::user();
+        return view('users.perfilPaciente',['user'=>$user]);
+    }
+    public function perfilMedico(){
+        $user=Auth::user();
+        return view('users.perfilMedico', ['user'=>$user]);
     }
 
 
@@ -43,5 +48,133 @@ class UserController extends Controller
         $usuarioActual->centroSanitario_id = $centroSanitario_id;
         $usuarioActual->save();
         return view("home");
+    }
+
+
+//PROBANDO CREAR EDITAR BORRAR MÉDICOS
+
+    public function index(Request $request)
+    {
+
+            $users = User::all();
+
+
+
+        return view('users.index',['users'=>$users]);
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+        //$especialidades = Especialidad::all()->pluck('nombre','id');
+
+        return view('users.create');
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'surname' => 'required|max:255',
+           // 'especialidad_id' => 'required|exists:especialidads,id',
+            'email'=> 'required|max:255',
+            'password'=> 'required|max:255',
+            'userType'=> 'required',
+
+
+
+
+
+
+        ]);
+        $user = new User($request->all());
+        $user->save();
+
+        // return redirect('especialidades');
+
+        flash('Usuario creado correctamente');
+
+        return redirect()->route('users.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+
+        $user = User::find($id);
+
+
+
+        return view('users.edit',['user'=> $user]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'surname' => 'required|max:255',
+            //'especialidad_id' => 'required|exists:especialidads,id'
+        ]);
+
+        $user = User::find($id);
+        $user->fill($request->all());
+
+        $user->save();
+
+        flash('Usuario modificado correctamente');
+
+        return redirect()->route('users.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        flash('Medico borrado correctamente');
+
+        return redirect()->route('users.index');
     }
 }

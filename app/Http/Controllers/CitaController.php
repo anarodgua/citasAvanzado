@@ -48,12 +48,14 @@ class CitaController extends Controller
     public function create()
     {
         $medicos = User::where('userType', 'Medico')->get()->pluck('name','id');
-      //  $centroSanitarios = CentroSanitario::all()->pluck('nombreCentro','id');
+        $pacientes = User::where('userType', 'Paciente')->get()->pluck('name','id');
+        //  $centroSanitarios = CentroSanitario::all()->pluck('nombreCentro','id');
         $localizaciones=Localizacion::all()->pluck('consulta','id');
       //  $localizaciones->each()
        // $localizaciones->pluck('fullName', 'id');
         //dd($localizaciones);
-        return view('citas/create',['medicos'=>$medicos,'localizaciones'=> $localizaciones]);
+
+        return view('citas/create',['medicos'=>$medicos,'localizaciones'=> $localizaciones, 'pacientes'=> $pacientes]);
     }
     public function createPaciente()
     {
@@ -76,6 +78,7 @@ class CitaController extends Controller
     {
         $this->validate($request, [
             'medico_id' => 'required|exists:users,id',
+            'paciente_id' => 'required|exists:users,id',
             'localizacion_id' => 'required|exists:localizacions,id',
             'fechaInicio' => 'required|date|after:now',
             'fechaFin' => 'required|date|after:now',
@@ -84,7 +87,6 @@ class CitaController extends Controller
         ]);
 
         $cita = new Cita($request->all());
-        $cita->paciente_id = Auth::user()->id;
         $cita->save();
 
 
@@ -132,6 +134,7 @@ class CitaController extends Controller
      */
     public function edit($id)
     {
+
 
         $cita = Cita::find($id);
 

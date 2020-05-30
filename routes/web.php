@@ -27,6 +27,8 @@ Route::group(['middleware' => 'App\Http\Middleware\MedicoMiddleware'], function(
 
     Route::get('/indexMedico', 'CitaController@indexMedico')->name('indexMedico');
 
+    Route::get('/perfilMedico', 'UserController@perfilMedico')->name('perfilMedico');
+
     Route::get('/showAssignCentroSanitario', 'UserController@showAssignCentroSanitario')->name('showAssignCentroSanitario');
     Route::post('/assignCentroSanitario', 'UserController@asignarCentroSanitorio')->name('assignCentroSanitario');
 
@@ -40,6 +42,8 @@ Route::group(['middleware' => 'App\Http\Middleware\PacienteMiddleware'], functio
 
     Route::get('/showAssignPoliza', 'PolizaController@showAssignPoliza')->name('showAssignPoliza');
     Route::post('/assignPoliza', 'PolizaController@asignarPoliza')->name('assignPoliza');
+
+    Route::get('/perfilPaciente', 'UserController@perfilPaciente')->name('perfilPaciente');
 
     Route::get('/indexPaciente', 'CitaController@indexPaciente')->name('indexPaciente');
     Route::get('/editPaciente/{id}', 'CitaController@editPaciente')->name('editPaciente');
@@ -64,6 +68,8 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
     Route::resource('polizas', 'PolizaController');
     Route::resource('especialidads', 'EspecialidadController');
     Route::put('/editCita', 'CitaController@updateAdmin')->name('editCita');
+    //Route::put('/edit', 'UserController@update')->name('edit');
+
 
 });
 

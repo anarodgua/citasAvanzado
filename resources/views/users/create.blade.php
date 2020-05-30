@@ -5,26 +5,39 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Crear medico</div>
-
+                    <div class="panel-heading">Crear usuario</div>
                     <div class="panel-body">
                         @include('flash::message')
 
-                        {!! Form::open(['route' => 'medicos.store']) !!}
+                        {!! Form::open(['route' => 'users.store']) !!}
                         <div class="form-group">
-                            {!! Form::label('name', 'Nombre del medico') !!}
+                            {!! Form::label('name', 'Nombre del usuario') !!}
                             {!! Form::text('name',null,['class'=>'form-control', 'required', 'autofocus']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('surname', 'Apellidos del medico') !!}
+                            {!! Form::label('surname', 'Apellidos del usuario') !!}
                             {!! Form::text('surname',null,['class'=>'form-control', 'required']) !!}
                         </div>
                         <div class="form-group">
-                            {!!Form::label('especialidad_id', 'Especialidad medico') !!}
-                            <br>
-                            {!! Form::select('especialidad_id', $especialidades, ['class' => 'form-control', 'required']) !!}
+                            {!! Form::label('email', 'Email del usuario') !!}
+                            {!! Form::text('email',null,['class'=>'form-control', 'required']) !!}
                         </div>
-                        {!! Form::submit('Guardar',['class'=>'btn-primary btn']) !!}
+                        <div class="form-group">
+                            {!! Form::label('password', 'Contraseña del usuario') !!}
+                            {!! Form::text('password',null,['class'=>'form-control', 'required']) !!}
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">Tipo de usuario</label>
+
+                            <div class="col-md-6">
+                                <input type="radio" id="Médico" name="userType" value="Médico" class="@error('userType') is-invalid @enderror" name="userType" value="{{ old('userType') }}" required autocomplete="userType" autofocus>
+                                <label for="Médico">Médico</label><br>
+                                <input type="radio" id="Paciente" name="userType" value="Paciente" class="@error('userType') is-invalid @enderror" name="userType" value="{{ old('userType') }}" required autocomplete="userType" autofocus>
+                                <label for="Paciente">Paciente</label><br>
+                                </div>
+
+                                {!! Form::submit('Guardar',['class'=>'btn-primary btn']) !!}
 
                         {!! Form::close() !!}
                     </div>

@@ -14,7 +14,6 @@
                         <table class="table table-striped table-bordered">
                             <tr>
                                 <th>Fecha</th>
-                                <th>Medico</th>
                                 <th>Paciente</th>
                                 <th>Consulta</th>
                             </tr>
@@ -25,7 +24,6 @@
                                 <tr>
                                     <td>{{ $cita->fechaInicio }}</td>
                                     <td>{{ $cita->medico->name}}</td>
-                                    <td>{{ $cita->paciente->name}}</td>
                                     <td>{{ $cita->localizacion->consulta}}</td>
 
                                 </tr>

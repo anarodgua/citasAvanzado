@@ -28,7 +28,6 @@ class CitasTable extends Migration
             $table->foreign('medico_id')->references('id')->on('users');
             $table->foreign('paciente_id')->references('id')->on('users');
 
-
         });
     }
 
