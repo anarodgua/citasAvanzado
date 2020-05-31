@@ -22,9 +22,18 @@
                             {!! Form::label('email', 'Email del usuario') !!}
                             {!! Form::text('email',null,['class'=>'form-control', 'required']) !!}
                         </div>
-                        <div class="form-group">
-                            {!! Form::label('password', 'Contraseña del usuario') !!}
-                            {!! Form::text('password',null,['class'=>'form-control', 'required']) !!}
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 control-label">Password</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" name="password" required>
+
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
 
                         <div class="form-group row">

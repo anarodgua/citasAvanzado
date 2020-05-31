@@ -16,6 +16,8 @@
                                 <th>Fecha</th>
                                 <th>Paciente</th>
                                 <th>Consulta</th>
+                                <th>Tipo de cita</th>
+
                             </tr>
 
                             @foreach ($citas as $cita)
@@ -23,8 +25,10 @@
 
                                 <tr>
                                     <td>{{ $cita->fechaInicio }}</td>
-                                    <td>{{ $cita->medico->name}}</td>
+                                    <td>{{ $cita->paciente->name}}</td>
                                     <td>{{ $cita->localizacion->consulta}}</td>
+                                    <td>{{ $cita->tipoCita}}</td>
+
 
                                 </tr>
                             @endforeach
