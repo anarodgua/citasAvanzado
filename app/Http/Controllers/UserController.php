@@ -49,9 +49,14 @@ class UserController extends Controller
         $usuarioActual->save();
         return view("home");
     }
+    public function cuadroMedico(){
+        $medicos=User::where('userType', 'Medico')->get();
 
 
-//PROBANDO CREAR EDITAR BORRAR MÉDICOS
+       return view('users.cuadroMedico',['medicos'=>$medicos]);
+
+    }
+
 
     public function index(Request $request)
     {
@@ -94,11 +99,6 @@ class UserController extends Controller
             'password'=> 'required|max:255',
             'userType'=> 'required',
 
-
-
-
-
-
         ]);
         $user = new User($request->all());
         $user->save();
@@ -108,6 +108,19 @@ class UserController extends Controller
         flash('Usuario creado correctamente');
 
         return redirect()->route('users.index');
+    }
+    protected function altaUsers(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'surname' => $data['surname'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'nuhsa' => $data['nuhsa'],
+            'userType' => $data['userType'],
+
+
+        ]);
     }
 
     /**
@@ -174,6 +187,14 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
         flash('Medico borrado correctamente');
+
+        return redirect()->route('users.index');
+    }
+    public function destroyUser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        flash('Usuario borrado correctamente');
 
         return redirect()->route('users.index');
     }

@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Usuarios de AskForHealth</div>
+                    <div class="panel-heading">Cuadro médico</div>
 
 
                     <div class="panel-body">
                         @include('flash::message')
-                        {!! Form::open(['route' => 'users.create', 'method' => 'get']) !!}
+                        {!! Form::open(['route' => 'cuadroMedico', 'method' => 'get']) !!}
                         {!! Form::close() !!}
 
                         <br><br>
@@ -18,20 +18,15 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
-                                <th>Tipo de usuario</th>
+                                <th>Especialidad</th>
 
                             </tr>
 
-                            @foreach ($users as $user)
-
-
+                            @foreach ($medicos as $medico)
                                 <tr>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->surname }}</td>
-                                    <td>{{ $user->userType}}</td>
-
-
-
+                                    <td>{{ $medico->name}}</td>
+                                    <td>{{ $medico->surname}}</td>
+                                    <td>{{ $medico->especialidad->nombre}}</td>
 
                                 </tr>
                             @endforeach
@@ -40,6 +35,4 @@
                 </div>
             </div>
         </div>
-    </div>
-
 @endsection

@@ -51,6 +51,9 @@ Route::group(['middleware' => 'App\Http\Middleware\PacienteMiddleware'], functio
     Route::post('/storePaciente', 'CitaController@storePaciente')->name('storePaciente');
     Route::put('/updatePaciente/{id}', 'CitaController@updatePaciente')->name('updatePaciente');
     Route::delete('/destroyPaciente/{id}', 'CitaController@destroyPaciente')->name('destroyPaciente');
+    Route::get('/cuadroMedico', 'UserController@cuadroMedico')->name('cuadroMedico');
+
+
 
 
 
@@ -69,6 +72,8 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
     Route::resource('especialidads', 'EspecialidadController');
     Route::put('/editCita', 'CitaController@updateAdmin')->name('editCita');
     //Route::put('/edit', 'UserController@update')->name('edit');
+    Route::delete('/destroyUser/{id}', 'UserController@destroyUser')->name('destroyUser');
+
 
 
 });

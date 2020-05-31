@@ -29,8 +29,8 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Cita');
     }
-    public function getFullNameAtribute(){
-        return $this->name .' '. $this->surname;
+    public function getMedicoEspecialidadAtribute(){
+        return $this->name .' '. $this->surname.' '. $this->especialidad()->nombre;
     }
 
 

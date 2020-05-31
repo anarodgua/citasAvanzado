@@ -72,7 +72,7 @@
                                     </li>
                                     <li>
                                         <a href="{{ url('/users') }}">
-                                            Dar de alta usuarios
+                                            Usuarios de AskForHealth
                                         </a>
                                     </li>
                                     <li>
@@ -119,6 +119,11 @@
                                         <li>
                                             <a href="{{ url('/indexPaciente') }}">
                                                 Mis citas
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/cuadroMedico') }}">
+                                                Cuadro médico
                                             </a>
                                         </li>
 
